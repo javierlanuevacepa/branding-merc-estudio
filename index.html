@@ -192,7 +192,11 @@ function xp(n){S.xp+=n;save();bar()}
 let cl=null;const go=()=>{cl&&cl();cl=null;route()};
 function home(){
 const tot=T.reduce((a,t)=>a+t.cards.length,0),kn=Object.keys(S.known).length;
-app.innerHTML='<section class="hero"><h1>Estudia Branding y Mercadotecnia</h1><p>Tarjetas, quizzes y un desafío relámpago construidos solo con el material de tu curso. Llevas '+kn+' de '+tot+' tarjetas sabidas.</p><button class="btn" data-h="relampago" type="button">Desafío relámpago (récord: '+S.flash+')</button></section><div class="grid">'+
+app.innerHTML='<section class="hero"><h1>Estudia Branding y Mercadotecnia</h1><p>Tarjetas, quizzes y un desafío relámpago construidos solo con el material de tu curso. Llevas '+kn+' de '+tot+' tarjetas sabidas.</p>'+
+'<div class="row" style="margin:0 0 8px">'+
+'<button class="btn" data-h="relampago" type="button">Desafío relámpago (récord: '+S.flash+')</button>'+
+'<button class="btn g" data-h="simulacion" type="button">Simular prueba (30 preguntas)</button>'+
+'</div></section><div class="grid">'+
 T.map((t,i)=>'<button class="tc" style="--c:'+t.c+'" data-h="t'+i+'" type="button"><h3>'+E(t.n)+'</h3><p>'+E(t.t)+'</p><small>'+t.cards.filter((_,k)=>S.known[i+"-"+k]).length+' / '+t.cards.length+' tarjetas sabidas</small></button>').join("")+'</div>';
 }
 function topic(i){const t=T[i];
@@ -215,8 +219,62 @@ app.innerHTML='<button class="back" data-h="'+o.back+'" type="button">Salir</but
 const bs=[...app.querySelectorAll(".opt")];bs.forEach((b,k)=>b.onclick=()=>{if(locked)return;locked=true;bs.forEach((x,j)=>{if(op[j][1])x.classList.add("ok")});if(op[k][1])ok++;else b.classList.add("no");$("#w").textContent=o.timed?"":it[2];if(o.timed){setTimeout(()=>{n++;if(!end||Date.now()<end)draw()},600)}else{const nb=document.createElement("button");nb.className="btn";nb.type="button";nb.textContent=n+1>=q.length?"Ver resultado":"Siguiente pregunta";nb.onclick=()=>{n++;draw()};$("#w").after(nb)}});}
 if(o.timed){tk=setInterval(()=>{const l=Math.ceil((end-Date.now())/1000);const s=$("#st");if(s)s.textContent="Tiempo: "+Math.max(l,0)+" s · "+ok+" puntos";if(l<=0)finish()},250);cl=()=>clearInterval(tk)}
 draw()}
+function simulacion(){
+const q=sh(T.flatMap(t=>t.q)).slice(0,30);
+let n=0,locked=false;const results=[];
+function finish(){
+const ok=results.filter(r=>r.chosenIdx===r.correctIdx).length;
+xp(ok*10);
+const pct=Math.round(ok/results.length*100);
+const aprob=ok>=results.length*0.6;
+const reviewHtml=results.map((r,i)=>{
+const isOk=r.chosenIdx===r.correctIdx;
+return '<div class="panel" style="--c:'+(isOk?'#12805c':'#c4262e')+';padding:16px 18px;margin:10px 0">'+
+'<p class="stat">'+(isOk?'✅':'❌')+' Pregunta '+(i+1)+'</p>'+
+'<p class="q" style="font-size:17px;margin-top:4px">'+E(r.q)+'</p>'+
+'<p style="margin:6px 0;font-size:15px"><b>Tu respuesta:</b> <span style="color:'+(isOk?'var(--ok)':'var(--no)')+'">'+E(r.opts[r.chosenIdx])+'</span></p>'+
+(!isOk?'<p style="margin:6px 0;font-size:15px"><b>Correcta:</b> <span style="color:var(--ok)">'+E(r.opts[r.correctIdx])+'</span></p>':'')+
+'<p class="why" style="margin-top:8px">'+E(r.why)+'</p>'+
+'</div>';
+}).join("");
+app.innerHTML='<div class="panel" style="--c:#1e2a78">'+
+'<p class="stat">Resultado de la simulación</p>'+
+'<div class="big">'+ok+' / '+results.length+'</div>'+
+'<p>'+pct+'% de respuestas correctas. Ganaste '+(ok*10)+' XP.</p>'+
+'<p style="margin-top:8px;font-weight:700;color:'+(aprob?'var(--ok)':'var(--no)')+'">'+(aprob?'✅ Aprobado (≥60%)':'⚠️ Bajo el 60% — sigue practicando')+'</p>'+
+'<div class="row"><button class="btn" id="a" type="button">Simular otra vez</button><button class="btn g" data-h="" type="button">Volver al inicio</button></div>'+
+'</div>'+
+'<h2 style="margin-top:28px;font-size:26px">Revisión pregunta por pregunta</h2>'+
+reviewHtml;
+$("#a").onclick=()=>simulacion();
+}
+function draw(){
+if(n>=q.length)return finish();
+locked=false;
+const it=q[n];
+const op=sh(it[1].map((x,k)=>[x,k===0]));
+const correctIdx=op.findIndex(x=>x[1]);
+app.innerHTML='<button class="back" data-h="" type="button">Salir</button>'+
+'<div class="panel" style="--c:#1e2a78">'+
+'<p class="stat">Simulación de prueba · Pregunta '+(n+1)+' de '+q.length+'</p>'+
+'<p class="q">'+E(it[0])+'</p>'+
+op.map((x,k)=>'<button class="opt" data-k="'+k+'" type="button">'+E(x[0])+'</button>').join("")+
+'</div>';
+const bs=[...app.querySelectorAll(".opt")];
+bs.forEach((b,k)=>b.onclick=()=>{
+if(locked)return;
+locked=true;
+results.push({q:it[0],opts:op.map(x=>x[0]),correctIdx,chosenIdx:k,why:it[2]});
+n++;
+draw();
+});
+}
+cl=null;
+draw();
+}
 function route(){const h=location.hash.slice(1),i=+h.slice(1);
 if(h==="relampago")return quiz(T.flatMap(t=>t.q),{timed:1,c:"#1e2a78",back:""});
+if(h==="simulacion")return simulacion();
 if(h[0]==="t"&&T[i])return topic(i);if(h[0]==="c"&&T[i])return cards(i);
 if(h[0]==="q"&&T[i])return quiz(T[i].q,{c:T[i].c,back:"t"+i});home()}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-h]");if(b){const h=b.dataset.h;if(location.hash.slice(1)===h)go();else location.hash=h}});
