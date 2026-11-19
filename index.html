@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Branding y Mercadotecnia · Estudio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@600;800&display=swap">
+<style>
+:root{--bg:#f5f6fb;--s:#fff;--tx:#161a33;--mu:#5b6079;--ln:#dfe2f0;--in:#1e2a78;--ok:#12805c;--no:#c4262e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10122a;--s:#1a1d3d;--tx:#eef0ff;--mu:#a3a8cc;--ln:#2d3166;--in:#9aa7ff;--ok:#4fd1a0;--no:#ff7b82}}
+:root[data-theme="dark"]{--bg:#10122a;--s:#1a1d3d;--tx:#eef0ff;--mu:#a3a8cc;--ln:#2d3166;--in:#9aa7ff;--ok:#4fd1a0;--no:#ff7b82}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:17px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+h1,h2,h3,.logo{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.1;margin:0}
+.bar{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 20px;border-bottom:1px solid var(--ln);background:var(--s)}
+.logo{font-weight:800;font-size:19px;color:var(--in);text-decoration:none}
+.lv{display:flex;align-items:center;gap:10px;font-size:14px}.meter{width:120px;height:8px;border-radius:4px;background:var(--ln);overflow:hidden}.meter i{display:block;height:100%;background:var(--in)}
+.wrap{max-width:880px;margin:0 auto;padding:28px 20px 60px}
+.hero h1{font-size:clamp(34px,7vw,56px);font-weight:800;color:var(--in)}.hero p{max-width:56ch;color:var(--mu);margin:12px 0 22px}
+.btn{font:inherit;font-weight:700;border:2px solid var(--in);background:var(--in);color:#fff;padding:10px 18px;border-radius:10px;cursor:pointer}
+.btn.g{background:transparent;color:var(--in)}.btn.sm{padding:5px 12px;font-size:14px}
+:root[data-theme="dark"] .btn{color:#10122a}:root[data-theme="dark"] .btn.g{color:var(--in)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#10122a}:root:not([data-theme="light"]) .btn.g{color:var(--in)}}
+button:focus-visible,a:focus-visible{outline:3px solid var(--tx);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:26px}
+.tc{display:block;text-align:left;font:inherit;color:inherit;background:var(--s);border:1px solid var(--ln);border-top:6px solid var(--c);border-radius:12px;padding:16px;cursor:pointer}
+.tc h3{font-size:21px}.tc p{margin:8px 0;color:var(--mu);font-size:15px}.tc small{color:var(--mu)}
+.panel{background:var(--s);border:1px solid var(--ln);border-left:8px solid var(--c);border-radius:12px;padding:22px;margin:16px 0}
+.back{background:none;border:0;color:var(--in);font:inherit;font-weight:700;cursor:pointer;padding:0;margin-bottom:12px}
+dl{margin:0}dt{font-weight:700;margin-top:14px}dd{margin:2px 0 0;color:var(--mu)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.flip{min-height:190px;display:grid;place-items:center;text-align:center;font-size:21px;cursor:pointer;width:100%;font-family:inherit;color:var(--tx);background:var(--s)}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:var(--tx);background:var(--s);border:2px solid var(--ln);border-radius:10px;padding:12px 14px;margin:9px 0;cursor:pointer}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--s))}.opt.no{border-color:var(--no);background:color-mix(in srgb,var(--no) 16%,var(--s))}
+.q{font-size:21px;font-weight:700;margin:0 0 8px}.why{color:var(--mu);margin-top:10px}.stat{color:var(--mu);font-size:14px}
+.big{font-family:"Bricolage Grotesque",sans-serif;font-size:56px;font-weight:800;color:var(--in)}
+@media(prefers-reduced-motion:no-preference){.meter i{transition:width .4s}}
+</style></head><body>
+<header class="bar"><a class="logo" href="#">Branding y Mercadotecnia</a>
+<div class="lv"><span id="lv"></span><div class="meter"><i id="mt"></i></div><button class="btn g sm" id="rs" type="button">Reiniciar progreso</button></div></header>
+<main class="wrap" id="app"></main>
+<script>
+const T=[
+{n:"Fundamentos del marketing",c:"#1e2a78",t:"Necesidad, deseo y demanda; intercambio; orientaciones y estrategia.",
+cards:[["Necesidad, deseo y demanda","Necesidad: estado de carencia o insatisfacción. Deseo: anhelo de superar esa carencia. Demanda: conducta orientada a adquirir productos o servicios específicos. Tener una necesidad no basta: debe existir el deseo de satisfacerla."],
+["Condiciones para el intercambio","Dos partes, bienes, comunicación, interés y libertad. Si se concreta (transacción), ambas partes quedan en mejor situación que antes: se generó valor."],
+["Evolución del marketing","Orientación al producto (un buen producto a precio razonable basta), a la venta (desde la Depresión del 30 hasta 1950) y al marketing (la venta es el resultado, no el fin)."],
+["Estrategia vs. plan","Estrategia: conjunto de acciones (tácticas) para lograr un objetivo en un ambiente competitivo; anticipa las acciones de otros. Un plan que ignora a la competencia es solo un plan."]],
+q:[["Una persona siente hambre, quiere sushi y hace un pedido. ¿Qué representa el pedido?",["Una demanda","Una necesidad","Un deseo","Un intercambio"],"La demanda es la conducta orientada a adquirir un producto específico."],
+["Una empresa aumenta su producción y ofrece un buen producto a precio razonable. ¿Qué orientación refleja?",["Al producto","Al marketing","A las ventas","Al cliente"],"Es la primera etapa: se supone que un buen producto a precio razonable basta."],
+["Una empresa prepara todas sus acciones comerciales e ignora lo que hará la competencia. ¿Qué hace realmente?",["Un plan, no una estrategia","Una estrategia","Una táctica","Una evaluación"],"La estrategia exige anticipar las acciones de otros agentes."]]},
+{n:"Marca y arquitectura de marca",c:"#e0307a",t:"Qué es una marca, identidad vs. imagen y cómo se organiza un portafolio.",
+cards:[["¿Qué es una marca?","Marca = nombre comercial + logotipo + isotipo. Es el valor adicional que un producto tiene respecto de uno idéntico sin marca (Leuthesser)."],
+["Identidad vs. imagen","Identidad: lo que la marca construye y proyecta (dimensión conceptual, verbal y visual). Imagen: lo que las personas perciben."],
+["Estructura de la mezcla de productos","Ancho: número de líneas. Extensión: total de artículos por línea. Profundidad: versiones de cada producto. Consistencia: qué tan relacionadas están las líneas."],
+["Estrategias de marca","Extensión de línea (nuevo sabor), extensión de marca (BIC en afeitadoras), multimarcas (Toyota–Lexus) y marcas nuevas (si BIC hiciera cepillos de dientes)."]],
+q:[["¿Qué estrategia ejemplifica BIC al ser marca de lapiceras, afeitadoras y encendedores?",["Extensión de marca","Extensión de línea","Multimarcas","Marcas nuevas"],"Es lanzar un producto en una nueva clase bajo la misma marca."],
+["¿Qué mide el ancho de una mezcla de productos?",["El número de líneas comercializadas","La cantidad de versiones por línea","El total de artículos","La relación entre líneas"],"Profundidad son las versiones; extensión, los artículos; consistencia, la relación entre líneas."],
+["Toyota lanza Lexus para otro segmento en la misma clase. ¿Qué estrategia es?",["Multimarcas","Extensión de línea","Extensión de marca","Marca flanqueadora"],"Multimarcas: marcas adicionales en la misma clase para segmentos diferentes."],
+["¿Cómo se define la imagen de marca?",["Lo que las personas perciben","Lo que la empresa proyecta","El logotipo","El nombre comercial"],"La identidad se construye y proyecta; la imagen es la percepción."]]},
+{n:"Posicionamiento y diferenciación",c:"#0a7d8c",t:"El lugar en la mente del consumidor, sus estrategias y sus errores.",
+cards:[["Posicionamiento","Lugar que ocupa una marca en la mente de los consumidores, respecto de atributos relevantes y de la competencia. Ries y Trout: es lo que las personas piensan de tu marca, no lo que tú dices."],
+["Estrategias de posicionamiento","Por atributo, beneficio, uso o aplicación, usuario, estilo de vida, frente a la competencia (líder o seguidor) y por calidad o precio."],
+["Errores de posicionamiento","Sobre-posicionamiento (imagen muy estrecha), sub-posicionamiento (idea vaga), posicionamiento dudoso (promesas poco creíbles) y confuso (cambia seguido o apunta a segmentos distintos)."],
+["Cuatro pasos para diferenciarse","Hacer que el contexto tenga sentido, encontrar la idea de diferenciación, ofrecer pruebas y comunicar la diferencia (Trout y Rivkin)."]],
+q:[["Volvo comunica seguridad. ¿Qué estrategia de posicionamiento usa?",["Por beneficio","Por usuario","Por precio","Por estilo de vida"],"Destaca el beneficio del producto, como Crest con el control de caries."],
+["Una marca cambia su posicionamiento con demasiada frecuencia. ¿Qué error comete?",["Posicionamiento confuso","Sobre-posicionamiento","Sub-posicionamiento","Posicionamiento dudoso"],"La imagen queda diluida y genera confusión."],
+["Según la USP, ¿qué debe cumplir una propuesta para ser efectiva?",["Ofrecer un beneficio que la competencia no ofrezca","Ser creativa y entretenida","Tener el precio más bajo","Tener la línea más amplia"],"Debe ser única de la marca y lo bastante sólida para mover a la gente."]]},
+{n:"Segmentación y consumidor",c:"#b25e00",t:"Segmentos, estrategias de mercado meta, roles de compra y sesgos.",
+cards:[["Segmento de mercado","Grupo de personas con características similares que reaccionan de forma parecida a ciertos estímulos. Debe ser medible, accesible y de tamaño suficiente."],
+["Estrategias de mercado meta","Masiva (una sola estrategia, “escopeta”), uni-segmento y multi-segmento (“rifle”). La segmentación llevada al extremo es marketing personalizado."],
+["Roles en el proceso de compra","Iniciador, influenciador, decisor, comprador y consumidor. El consumidor no siempre es el iniciador, el decisor ni el comprador."],
+["Sesgos cognitivos","Anclaje, disponibilidad, representatividad, aversión a la pérdida, efecto marco y efecto halo (Kahneman y Tversky)."]],
+q:[["Un producto aparece rebajado de $100.000 a $60.000 y parece barato. ¿Qué sesgo opera?",["Anclaje","Disponibilidad","Efecto halo","Aversión a la pérdida"],"Los $100.000 funcionan como referencia."],
+["¿Qué rol toma la decisión final de compra?",["El decisor","El iniciador","El influenciador","El consumidor"],"Define qué se compra, cuándo, dónde, a quién y en qué condiciones."],
+["“90% libre de grasa” resulta más atractivo que “contiene 10% de grasa”. ¿Qué sesgo es?",["Efecto marco","Representatividad","Anclaje","Disponibilidad"],"Mismo contenido, distinto encuadre."]]},
+{n:"Producto, precio, plaza y promoción",c:"#5b3fb0",t:"Clasificación de bienes, ciclo de vida, canales, estrategias de precio y AIDA.",
+cards:[["Bienes de consumo","De conveniencia (mínimo esfuerzo), de selección (se comparan calidad, precio y estilo), de especialidad (fuerte preferencia de marca) y no buscados."],
+["Matriz BCG","Estrella (alto crecimiento y participación), vaca (genera ingresos con baja inversión), interrogación (futuro incierto) y perro (última etapa del ciclo de vida)."],
+["Canales y cobertura","Distribución intensiva, selectiva o exclusiva. Push: promoción hacia los intermediarios. Pull: hacia el consumidor final. Se pueden eliminar intermediarios, pero no sus funciones."],
+["Modelo AIDA","Atención, interés, deseo y acción. Estructura anuncios para que el cliente avance hacia una acción concreta."]],
+q:[["Un consumidor viaja a otra ciudad por una marca de reloj y rechaza las locales. ¿Qué tipo de bien es?",["De especialidad","De conveniencia","De selección","No buscado"],"Hay fuerte preferencia de marca y esfuerzo especial de compra."],
+["En la matriz BCG, ¿cómo se llama un producto con alta rentabilidad y bajas inversiones?",["Vaca","Estrella","Perro","Interrogación"],"Es generador de ingresos con importante rentabilidad."],
+["Una empresa dirige su promoción a los intermediarios para que exhiban su marca. ¿Qué estrategia usa?",["Push","Pull","Distribución exclusiva","Franquicia"],"Push empuja el producto por el canal; pull genera demanda en el consumidor."]]},
+{n:"Cliente, experiencia y estrategia",c:"#2f7d32",t:"Customer journey, NPS, lealtad, empatía y miopía de marketing.",
+cards:[["Viaje del cliente","Etapas: descubrir, evaluar, adquirir, servicio y lealtad. Se recuerdan los hitos, más como fotos que como película."],
+["Satisfacción y lealtad","Apóstoles (satisfechos que recomiendan), mercenarios (buscan precio), rehenes (mala experiencia pero no pueden cambiar) y terroristas (frustrados que abandonan)."],
+["Net Promoter Score","Mide la probabilidad de recomendar: escala de 0 a 10 y el motivo de la respuesta. Es simple y comparable entre empresas."],
+["Miopía de marketing (Levitt)","Definir el negocio por el producto y no por la necesidad que satisface: los ferrocarriles creyeron estar en el negocio ferroviario, no en el del transporte."]],
+q:[["Según Levitt, ¿qué refleja la miopía de marketing?",["Definir el negocio por el producto y no por la necesidad","Vender sin conocer al cliente","Confiar solo en la calidad","Priorizar la eficiencia productiva"],"Los ferrocarriles estaban en el negocio del transporte."],
+["¿Qué escala usa el NPS?",["De 0 a 10","De 1 a 7","De 1 a 5","De 0 a 100"],"El CSAT usa 1 a 7."],
+["Un cliente con mala experiencia no puede cambiar de proveedor por contratos o costos de cambio. ¿Qué es?",["Un rehén","Un mercenario","Un apóstol","Un terrorista"],"Los terroristas, en cambio, aprovechan cualquier oportunidad para irse."],
+["Según Seth Godin, ¿en qué se fundamenta el buen marketing?",["En la empatía","En la publicidad","En el precio","En la tecnología"],"Es más fácil crear productos para clientes a quienes quieres servir que buscar clientes para tus productos."]]}
+];
+const $=s=>document.querySelector(s),app=$("#app");
+const E=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let S={xp:0,known:{},flash:0};
+try{Object.assign(S,JSON.parse(localStorage.getItem("bm")||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem("bm",JSON.stringify(S))}catch(e){}};
+function bar(){$("#lv").textContent="Nivel "+(Math.floor(S.xp/100)+1)+" · "+S.xp+" XP";$("#mt").style.width=(S.xp%100)+"%"}
+function xp(n){S.xp+=n;save();bar()}
+let cl=null;const go=()=>{cl&&cl();cl=null;route()};
+function home(){
+const tot=T.reduce((a,t)=>a+t.cards.length,0),kn=Object.keys(S.known).length;
+app.innerHTML='<section class="hero"><h1>Estudia Branding y Mercadotecnia</h1><p>Tarjetas, quizzes y un desafío relámpago construidos solo con el material de tu curso. Llevas '+kn+' de '+tot+' tarjetas sabidas.</p><button class="btn" data-h="relampago" type="button">Desafío relámpago (récord: '+S.flash+')</button></section><div class="grid">'+
+T.map((t,i)=>'<button class="tc" style="--c:'+t.c+'" data-h="t'+i+'" type="button"><h3>'+E(t.n)+'</h3><p>'+E(t.t)+'</p><small>'+t.cards.filter((_,k)=>S.known[i+"-"+k]).length+' / '+t.cards.length+' tarjetas sabidas</small></button>').join("")+'</div>';
+}
+function topic(i){const t=T[i];
+app.innerHTML='<button class="back" data-h="" type="button">Volver a los temas</button><h2 style="font-size:34px">'+E(t.n)+'</h2><div class="panel" style="--c:'+t.c+'"><dl>'+t.cards.map(c=>'<dt>'+E(c[0])+'</dt><dd>'+E(c[1])+'</dd>').join("")+'</dl></div><div class="row"><button class="btn" data-h="c'+i+'" type="button">Repasar con tarjetas</button><button class="btn g" data-h="q'+i+'" type="button">Hacer el quiz</button></div>';
+}
+function cards(i){const t=T[i];let d=sh(t.cards.map((c,k)=>[k,c])).sort((a,b)=>!!S.known[i+"-"+a[0]]-!!S.known[i+"-"+b[0]]),n=0,back=false;
+function draw(){if(n>=d.length){app.innerHTML='<div class="panel" style="--c:'+t.c+'"><h2>Mazo completo</h2><p>Llevas '+t.cards.filter((_,k)=>S.known[i+"-"+k]).length+' de '+t.cards.length+' tarjetas sabidas en este tema.</p><div class="row"><button class="btn" data-h="q'+i+'" type="button">Hacer el quiz</button><button class="btn g" data-h="t'+i+'" type="button">Volver al tema</button></div></div>';return}
+const c=d[n][1];app.innerHTML='<button class="back" data-h="t'+i+'" type="button">Volver al tema</button><p class="stat">Tarjeta '+(n+1)+' de '+d.length+'. Toca para ver el reverso.</p><button class="panel flip" style="--c:'+t.c+'" id="f" type="button">'+(back?'<span>'+E(c[1])+'</span>':'<b>'+E(c[0])+'</b>')+'</button>'+(back?'<div class="row"><button class="btn" id="k" type="button">Ya la sé</button><button class="btn g" id="r" type="button">Repasar después</button></div>':"");
+$("#f").onclick=()=>{back=!back;draw()};
+if(back){$("#k").onclick=()=>{if(!S.known[i+"-"+d[n][0]]){S.known[i+"-"+d[n][0]]=1;xp(2)}back=false;n++;draw()};$("#r").onclick=()=>{back=false;n++;draw()}}}
+draw()}
+function quiz(list,o){let q=sh(list),n=0,ok=0,locked=false,end=o.timed?Date.now()+60000:0,tk;
+function finish(){clearInterval(tk);cl=null;const rec=o.timed&&ok>S.flash;if(rec)S.flash=ok;xp(ok*(o.timed?5:10));
+app.innerHTML='<div class="panel" style="--c:'+o.c+'"><p class="stat">'+(rec?"Nuevo récord":"Resultado")+'</p><div class="big">'+ok+(o.timed?"":" / "+q.length)+'</div><p>'+(o.timed?"respuestas correctas en 60 segundos.":"respuestas correctas.")+' Ganaste '+ok*(o.timed?5:10)+' XP.</p><div class="row"><button class="btn" id="a" type="button">Jugar de nuevo</button><button class="btn g" data-h="'+o.back+'" type="button">Volver</button></div></div>';$("#a").onclick=()=>{o.timed?go():quiz(list,o)}}
+function draw(){if(n>=q.length){if(o.timed){q=sh(list);n=0}else return finish()}locked=false;const it=q[n],op=sh(it[1].map((x,k)=>[x,k===0]));
+app.innerHTML='<button class="back" data-h="'+o.back+'" type="button">Salir</button><div class="panel" style="--c:'+o.c+'"><p class="stat" id="st">'+(o.timed?"":"Pregunta "+(n+1)+" de "+q.length)+'</p><p class="q">'+E(it[0])+'</p>'+op.map((x,k)=>'<button class="opt" data-k="'+k+'" type="button">'+E(x[0])+'</button>').join("")+'<p class="why" id="w" aria-live="polite"></p></div>';
+const bs=[...app.querySelectorAll(".opt")];bs.forEach((b,k)=>b.onclick=()=>{if(locked)return;locked=true;bs.forEach((x,j)=>{if(op[j][1])x.classList.add("ok")});if(op[k][1])ok++;else b.classList.add("no");$("#w").textContent=o.timed?"":it[2];setTimeout(()=>{n++;if(!end||Date.now()<end)draw()},o.timed?600:0);if(!o.timed){const nb=document.createElement("button");nb.className="btn";nb.type="button";nb.textContent=n+1>=q.length?"Ver resultado":"Siguiente pregunta";nb.onclick=()=>{n++;draw()};$("#w").after(nb)}});}
+if(o.timed){tk=setInterval(()=>{const l=Math.ceil((end-Date.now())/1000);const s=$("#st");if(s)s.textContent="Tiempo: "+Math.max(l,0)+" s · "+ok+" puntos";if(l<=0)finish()},250);cl=()=>clearInterval(tk)}
+draw()}
+function route(){const h=location.hash.slice(1),i=+h.slice(1);
+if(h==="relampago")return quiz(T.flatMap(t=>t.q),{timed:1,c:"#1e2a78",back:""});
+if(h[0]==="t"&&T[i])return topic(i);if(h[0]==="c"&&T[i])return cards(i);
+if(h[0]==="q"&&T[i])return quiz(T[i].q,{c:T[i].c,back:"t"+i});home()}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-h]");if(b){const h=b.dataset.h;if(location.hash.slice(1)===h)go();else location.hash=h}});
+addEventListener("hashchange",()=>{cl&&cl();cl=null;route()});
+let rc=0;$("#rs").onclick=function(){if(!rc){rc=1;this.textContent="¿Seguro? Se borra todo";setTimeout(()=>{rc=0;this.textContent="Reiniciar progreso"},3000)}else{S={xp:0,known:{},flash:0};save();bar();rc=0;this.textContent="Reiniciar progreso";go()}};
+bar();route();
+</script></body></html>
